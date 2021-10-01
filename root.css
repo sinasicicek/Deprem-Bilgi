@@ -1,0 +1,10 @@
+html{font-size: 10px;}
+.container{
+ font-size: 2rem;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+ul{
+    list-style-type: none;
+}
