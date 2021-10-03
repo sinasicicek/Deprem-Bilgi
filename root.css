@@ -1,53 +1,88 @@
-html{
-    font-size: 10px;
+const conta=document.querySelector(".container")
+async function getir() {
+    const geti=await fetch("https://api.orhanaydogdu.com.tr/deprem/live.php?limit=20");
+    return await geti.json()
+}
+
+function Created(veri){ return document.createElement(veri)}
+
+function obj_build(...params) {
+
+    let div=document.createElement("div")
+    let siddet_no=Number(params[2])
+    let sinif=["items","brdr"]
+        div.classList.add(...sinif)
+
+
   
+
+let str=Created("h3")
+    str.textContent=params[1];
+
+let h5=Created("h5");
+        h5.textContent=params[0];
+
+       
+let span=Created("span")
+   if (siddet_no >4) {
+       span.classList.add("span-red")
+       span.classList.add("sala")
+       div.classList.add("sala")
+       }
+      span.textContent=params[2];
+
+let eklenecek=[str,h5,span]
+    eklenecek.forEach( ekle=>{
+            div.appendChild(ekle)
+        })
+
+return div;
 }
 
-.container{
-height: 100%;
- font-size: 2rem;
- display: flex;
- flex-direction: row;
- align-items: center;
- justify-content: center;
-flex-wrap: wrap;
- background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+function basla() {
+    let bc=getir();
+    bc.then( geldi=>{
+   for (const key in geldi) {
+      
+       if (Object.hasOwnProperty.call(geldi, key)) 
+       {
+           const element = geldi[key];
+           console.log(geldi[key].length);
+         
+            for (let index = 0; index < element.length; index++) {
+                const eleman = element[index];
+                if(eleman === undefined){}
+                else{
+                // console.log(eleman["date"]);
 
-}
-ul{
-    list-style-type: none;
-}
-.li_padding{
-    padding: 2rem;
-}
-.items{
-    width: 25rem;
-    height: 25rem;
-    background-color: white;
-   margin: 2rem;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-}
-.brdr{
-    border-radius: 1rem;
-    border: 1px solid transparent;
-}
-h5 {
-    text-align: center;
-    margin: 0px;
-    padding: 0px;
-}
-h3{
-    text-align: center;
-}
-span{
-    font-size: 10rem;
-    text-align: center;
-    
-}
-.span-red{
-    color: red;
-}
+ /*Json verileri  */
+                 let tarih=eleman["date"];
+                 let lokasyon=eleman["lokasyon"]
+                 let siddet=eleman["mag"]
+               //console.log(tarih+" "+lokasyon+" "+siddet );
+/* -------------------------------------- */
+                let data=obj_build(tarih,lokasyon,siddet)
 
+                conta.appendChild(data)
+ 
+          
+     
+                }
+            }
+       } 
+   }
+
+})
+}
+basla();
+setInterval(()=>{
+    conta.innerHTML=""
+    basla()
+},60000)
+
+const buton=document.querySelector("#ref")
+buton.addEventListener("click",()=>{
+ 
+ conta.innerHTML=""
+  basla()
+})
