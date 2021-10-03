@@ -1,10 +1,53 @@
-html{font-size: 10px;}
+html{
+    font-size: 10px;
+  
+}
+
 .container{
+height: 100%;
  font-size: 2rem;
  display: flex;
+ flex-direction: row;
  align-items: center;
  justify-content: center;
+flex-wrap: wrap;
+ background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
 }
 ul{
     list-style-type: none;
 }
+.li_padding{
+    padding: 2rem;
+}
+.items{
+    width: 25rem;
+    height: 25rem;
+    background-color: white;
+   margin: 2rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+.brdr{
+    border-radius: 1rem;
+    border: 1px solid transparent;
+}
+h5 {
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+h3{
+    text-align: center;
+}
+span{
+    font-size: 10rem;
+    text-align: center;
+    
+}
+.span-red{
+    color: red;
+}
+

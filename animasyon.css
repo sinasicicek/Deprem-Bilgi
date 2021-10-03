@@ -1,0 +1,15 @@
+.sala{
+
+    animation:salla 5s infinite;
+}
+@keyframes salla {
+    0%{
+       transform:rotate(60deg)
+    }
+    50%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(-60deg)
+    }
+}

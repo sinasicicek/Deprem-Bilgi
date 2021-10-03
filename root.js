@@ -5,17 +5,13 @@ async function getir() {
 
 
 }
-let sayi=0;
+
 let bc=getir();
 bc.then( geldi=>{
-const ul=Created("ul");
-
-
    for (const key in geldi) {
       
-       if (Object.hasOwnProperty.call(geldi, key)) {
-
-
+       if (Object.hasOwnProperty.call(geldi, key)) 
+       {
            const element = geldi[key];
            console.log(geldi[key].length);
          
@@ -23,40 +19,60 @@ const ul=Created("ul");
                 const eleman = element[index];
                 if(eleman === undefined){}
                 else{
-                 console.log(eleman["date"]);
+                // console.log(eleman["date"]);
 
+ /*Json verileri  */
                  let tarih=eleman["date"];
                  let lokasyon=eleman["lokasyon"]
                  let siddet=eleman["mag"]
-                 const li=Created("li");
+               //console.log(tarih+" "+lokasyon+" "+siddet );
+/* -------------------------------------- */
+                let data=obj_build(tarih,lokasyon,siddet)
 
-                 const h1=Created("h1")
-                 h1.textContent="Tarih :"+tarih;
-                 const hr=Created("hr")
-
-                 const h2=Created("h2");
-                 h2.textContent=lokasyon+"  "+"Deprem Siddeti: "+siddet
-                 li.appendChild(h1)
-                 li.appendChild(h2)
-               
-                li.appendChild(hr)
-                 ul.appendChild(li);
+                conta.appendChild(data)
+ 
+          
+     
                 }
             }
-         
-          
        } 
-       
    }
-
-   conta.appendChild(ul)
-
-
 
 })
 
 
 
-function Created(veri){ return document.createElement(veri)
+function Created(veri){ return document.createElement(veri)}
 
+function obj_build(...params) {
+
+    let div=document.createElement("div")
+    let siddet_no=Number(params[2])
+    let sinif=["items","brdr"]
+        div.classList.add(...sinif)
+
+
+  
+
+let str=Created("h3")
+    str.textContent=params[1];
+
+let h5=Created("h5");
+        h5.textContent=params[0];
+
+       
+let span=Created("span")
+   if (siddet_no >4) {
+       span.classList.add("span-red")
+       span.classList.add("sala")
+       div.classList.add("sala")
+       }
+      span.textContent=params[2];
+
+let eklenecek=[str,h5,span]
+    eklenecek.forEach( ekle=>{
+            div.appendChild(ekle)
+        })
+
+return div;
 }
