@@ -1,46 +1,8 @@
 const conta=document.querySelector(".container")
 async function getir() {
-    const geti=await fetch("https://api.orhanaydogdu.com.tr/deprem/live.php?limit=100");
+    const geti=await fetch("https://api.orhanaydogdu.com.tr/deprem/live.php?limit=20");
     return await geti.json()
-
-
 }
-
-let bc=getir();
-bc.then( geldi=>{
-   for (const key in geldi) {
-      
-       if (Object.hasOwnProperty.call(geldi, key)) 
-       {
-           const element = geldi[key];
-           console.log(geldi[key].length);
-         
-            for (let index = 0; index < element.length; index++) {
-                const eleman = element[index];
-                if(eleman === undefined){}
-                else{
-                // console.log(eleman["date"]);
-
- /*Json verileri  */
-                 let tarih=eleman["date"];
-                 let lokasyon=eleman["lokasyon"]
-                 let siddet=eleman["mag"]
-               //console.log(tarih+" "+lokasyon+" "+siddet );
-/* -------------------------------------- */
-                let data=obj_build(tarih,lokasyon,siddet)
-
-                conta.appendChild(data)
- 
-          
-     
-                }
-            }
-       } 
-   }
-
-})
-
-
 
 function Created(veri){ return document.createElement(veri)}
 
@@ -76,3 +38,43 @@ let eklenecek=[str,h5,span]
 
 return div;
 }
+
+function basla() {
+    let bc=getir();
+    bc.then( geldi=>{
+   for (const key in geldi) {
+      
+       if (Object.hasOwnProperty.call(geldi, key)) 
+       {
+           const element = geldi[key];
+           console.log(geldi[key].length);
+         
+            for (let index = 0; index < element.length; index++) {
+                const eleman = element[index];
+                if(eleman === undefined){}
+                else{
+                // console.log(eleman["date"]);
+
+ /*Json verileri  */
+                 let tarih=eleman["date"];
+                 let lokasyon=eleman["lokasyon"]
+                 let siddet=eleman["mag"]
+               //console.log(tarih+" "+lokasyon+" "+siddet );
+/* -------------------------------------- */
+                let data=obj_build(tarih,lokasyon,siddet)
+
+                conta.appendChild(data)
+ 
+          
+     
+                }
+            }
+       } 
+   }
+
+})
+}
+basla();
+setInterval(()=>{
+    basla()
+},5000)
