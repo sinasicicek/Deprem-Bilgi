@@ -4,6 +4,7 @@ html{
 }
 
 .container{
+    padding: 20px;
 height: 100%;
  font-size: 2rem;
  display: flex;

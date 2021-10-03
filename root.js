@@ -76,5 +76,13 @@ function basla() {
 }
 basla();
 setInterval(()=>{
+    conta.innerHTML=""
     basla()
-},5000)
+},60000)
+
+const buton=document.querySelector("#ref")
+buton.addEventListener("click",()=>{
+ 
+ conta.innerHTML=""
+  basla()
+})
