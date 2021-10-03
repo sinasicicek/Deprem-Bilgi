@@ -1,6 +1,6 @@
 const conta=document.querySelector(".container")
 async function getir() {
-    const geti=await fetch("https://api.orhanaydogdu.com.tr/deprem/live.php?limit=20");
+    const geti=await fetch("https://api.orhanaydogdu.com.tr/deprem/live.php?limit=50");
     return await geti.json()
 }
 
@@ -76,5 +76,13 @@ function basla() {
 }
 basla();
 setInterval(()=>{
+    conta.innerHTML=""
     basla()
-},5000)
+},60000)
+
+const buton=document.querySelector("#ref")
+buton.addEventListener("click",()=>{
+ 
+ conta.innerHTML=""
+  basla()
+})
