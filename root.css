@@ -2,7 +2,22 @@ html{
     font-size: 10px;
   
 }
+.sacla{
+    position:absolute;
+    top:1em;
+    
+}
+.sacla > input { width:1em;}
+.sacla:hover > input { width:10em;}
+.sacla:hover > .btn-getir { display: inline;}
+.btn-getir{
+    width:6em;
+    height:2em;
+    margin-top:1em;
+    border-radius: 1em !important;
+    display: none;
 
+}
 .container{
     padding: 20px;
 height: 100%;
@@ -26,10 +41,16 @@ ul{
     height: 25rem;
     background-color: white;
    margin: 2rem;
+   padding: 2em;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+}
+.items:hover{
+    color:red;
+    transform:scale(1.1);
+    border-color: rebeccapurple;
 }
 .brdr{
     border-radius: 1rem;
