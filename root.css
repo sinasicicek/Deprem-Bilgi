@@ -1,3 +1,4 @@
+@import "./navB.css";
 html{
     font-size: 10px;
   
@@ -7,8 +8,16 @@ html{
     top:1em;
     
 }
-.sacla > input { width:1em;}
-.sacla:hover > input { width:10em;}
+
+.sacla > input { 
+    width:1em;
+    border-radius: 50%;
+    background-color: red;    
+}
+.sacla:hover > input { 
+    border-radius: 0%;
+    background-color: white;    
+    width:10em;}
 .sacla:hover > .btn-getir { display: inline;}
 .btn-getir{
     width:6em;

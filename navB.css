@@ -1,0 +1,23 @@
+.navB{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+.navB > li {
+    padding: 1rem;
+}
+.navB > li > button{
+    width: 120px;
+    height: 30px;
+    border:0px solid transparent;
+    
+    cursor:pointer;
+}
+
+.icon > img {
+    width:15rem;
+    height:15rem;
+    border-radius: 50%;
+
+}
