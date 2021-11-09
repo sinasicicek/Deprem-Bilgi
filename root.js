@@ -1,94 +1,102 @@
-@import "./navB.css";
-html{
-    font-size: 10px;
+const conta=document.querySelector(".container")
+
+async function getir(kac) {
+    let kac_adet="https://api.orhanaydogdu.com.tr/deprem/live.php?limit="
+    const geti=await fetch(`${kac_adet}`+kac);
+    return await geti.json()
+}
+
+function Created(veri){ return document.createElement(veri)}
+
+function obj_build(...params) {
+
+    let div=document.createElement("div")
+    let siddet_no=Number(params[2])
+    let sinif=["items","brdr"]
+        div.classList.add(...sinif)
+
+
   
+
+let str=Created("h3")
+    str.textContent=params[1];
+
+let h5=Created("h5");
+        h5.textContent=params[0];
+
+       
+let span=Created("span")
+   if (siddet_no >4) {
+       span.classList.add("span-red")
+       span.classList.add("sala")
+       div.classList.add("sala")
+       }
+      span.textContent=params[2];
+
+let eklenecek=[str,h5,span]
+    eklenecek.forEach( ekle=>{
+            div.appendChild(ekle)
+        })
+
+return div;
 }
 
-.sacla{
-    position:absolute;
-    top:1em;
-    
-}
+function basla(kac_adet=15) {
+    let bc=getir(kac_adet);
+    bc.then( geldi=>{
+   for (const key in geldi) {
+      
+       if (Object.hasOwnProperty.call(geldi, key)) 
+       {
+           const element = geldi[key];
+           console.log(geldi[key].length);
+         
+            for (let index = 0; index < element.length; index++) {
+                const eleman = element[index];
+                if(eleman === undefined){}
+                else{
+                // console.log(eleman["date"]);
 
-.sacla > input { 
-    width:1em;
-    border-radius: 50%;
-    background-color: red;    
+ /*Json verileri  */
+                 let tarih=eleman["date"];
+                 let lokasyon=eleman["lokasyon"]
+                 let siddet=eleman["mag"]
+               //console.log(tarih+" "+lokasyon+" "+siddet );
+/* -------------------------------------- */
+                let data=obj_build(tarih,lokasyon,siddet)
+
+                conta.appendChild(data)
+ 
+          
+     
+                }
+            }
+       } 
+   }
+
+})
 }
-.sacla:hover > input { 
-    border-radius: 0%;
-    background-color: white;    
-    width:10em;}
-.sacla:hover > .btn-getir { display: inline;}
-.btn-getir{
-    width:6em;
-    height:2em;
-    margin-top:1em;
-    border-radius: 1em !important;
-    display: none;
-}
+basla();
+setInterval(()=>{
+    conta.innerHTML=""
+    basla()
+},60000)
+
+const buton=document.querySelector("#ref")
+buton.addEventListener("click",()=>{
+ 
+ conta.innerHTML=""
+  basla()
+})
 
 
-.container{
-    padding: 20px;
 
-    height: 50%;
-    width:80%;
-    font-size: 2rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    /*background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);*/
-    background-color: #1A2036;
+const buton_filter=document.querySelector("#filter")
+const input_kac=document.querySelector("#inpt_kac")
 
-
-}
-body{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #252B42;
-}
-ul{
-    list-style-type: none;
-}
-.li_padding{
-    padding: 2rem;
-}
-.items{
-    width: 25rem;
-    height: 25rem;
-    background-color: #808FBE;
-    color:white;
-   margin: 2rem;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-}
-.items:hover{
-    transform: scale(1.2);
-}
-.brdr{
-    border-radius: 1rem;
-    border: 1px solid transparent;
-}
-h5 {
-    text-align: center;
-    margin: 0px;
-    padding: 0px;
-}
-h3{
-    text-align: center;
-}
-span{
-    font-size: 10rem;
-    text-align: center;
-    
-}
-.span-red{
-    color: red;
-}
-
+buton_filter.addEventListener("click",()=>{
+ 
+    conta.innerHTML=""
+     basla(input_kac.value)
+   })
+   
