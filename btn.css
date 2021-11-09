@@ -1,7 +1,11 @@
 button{
     width: 80px;
     height: 80px;
+<<<<<<< HEAD
+  
+=======
     border-radius: 50%;
+>>>>>>> 67b8e37e1d0f286a1ed02eb33822dd3eb1597508
     border: 0px solid transparent;
     cursor:pointer;
 }
@@ -14,4 +18,8 @@ button{
    
     width: 78px;
     height: 78px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 67b8e37e1d0f286a1ed02eb33822dd3eb1597508

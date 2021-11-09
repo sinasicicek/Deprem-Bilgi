@@ -1,10 +1,48 @@
+@import "./navB.css";
 html{
     font-size: 10px;
   
 }
 
+.sacla{
+    position:absolute;
+    top:1em;
+    
+}
+
+.sacla > input { 
+    width:1em;
+    border-radius: 50%;
+    background-color: red;    
+}
+.sacla:hover > input { 
+    border-radius: 0%;
+    background-color: white;    
+    width:10em;}
+.sacla:hover > .btn-getir { display: inline;}
+.btn-getir{
+    width:6em;
+    height:2em;
+    margin-top:1em;
+    border-radius: 1em !important;
+    display: none;
+}
+
+
 .container{
     padding: 20px;
+<<<<<<< HEAD
+    height: 50%;
+    width:80%;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    /*background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);*/
+    background-color: #1A2036;
+=======
 height: 100%;
  font-size: 2rem;
  display: flex;
@@ -13,7 +51,14 @@ height: 100%;
  justify-content: center;
 flex-wrap: wrap;
  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+>>>>>>> 67b8e37e1d0f286a1ed02eb33822dd3eb1597508
 
+}
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #252B42;
 }
 ul{
     list-style-type: none;
@@ -24,12 +69,16 @@ ul{
 .items{
     width: 25rem;
     height: 25rem;
-    background-color: white;
+    background-color: #808FBE;
+    color:white;
    margin: 2rem;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+}
+.items:hover{
+    transform: scale(1.2);
 }
 .brdr{
     border-radius: 1rem;
