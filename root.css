@@ -31,7 +31,7 @@ html{
 
 .container{
     padding: 20px;
-<<<<<<< HEAD
+
     height: 50%;
     width:80%;
     font-size: 2rem;
@@ -42,16 +42,7 @@ html{
     flex-wrap: wrap;
     /*background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);*/
     background-color: #1A2036;
-=======
-height: 100%;
- font-size: 2rem;
- display: flex;
- flex-direction: row;
- align-items: center;
- justify-content: center;
-flex-wrap: wrap;
- background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
->>>>>>> 67b8e37e1d0f286a1ed02eb33822dd3eb1597508
+
 
 }
 body{
