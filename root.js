@@ -41,7 +41,7 @@ let eklenecek=[str,h5,span]
 return div;
 }
 
-function basla(kac_adet=15) {
+function basla(kac_adet=100) {
     let bc=getir(kac_adet);
     bc.then( geldi=>{
    for (const key in geldi) {
