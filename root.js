@@ -1,4 +1,4 @@
-const conta=document.querySelector(".container")
+Ofconst conta=document.querySelector(".container")
 
 async function getir(kac) {
     let kac_adet="https://api.orhanaydogdu.com.tr/deprem/live.php?limit="
@@ -29,8 +29,8 @@ let h5=Created("h5");
 let span=Created("span")
    if (siddet_no >4) {
        span.classList.add("span-red")
-       //span.classList.add("sala")
-       //div.classList.add("sala")
+       span.classList.add("sala")
+       div.classList.add("sala")
        }
       span.textContent=params[2];
 
