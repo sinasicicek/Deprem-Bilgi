@@ -67,8 +67,6 @@ function basla(kac_adet=100) {
                 let data=obj_build(tarih,lokasyon,siddet)
 
                 conta.appendChild(data)
- 
-          const oran=document.querySelector("siddetadeti")
         
      
                 }
