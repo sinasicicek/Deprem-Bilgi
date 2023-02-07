@@ -41,7 +41,7 @@ let eklenecek=[str,h5,span]
 
 return div;
 }
-const sayi=null
+
 function basla(kac_adet=100) {
     let bc=getir(kac_adet);
     bc.then( geldi=>{
@@ -89,14 +89,4 @@ buton.addEventListener("click",()=>{
   basla()
 })
 
-
-
-const buton_filter=document.querySelector("#filter")
-const input_kac=document.querySelector("#inpt_kac")
-
-buton_filter.addEventListener("click",()=>{
- 
-    conta.innerHTML=""
-     basla(input_kac.value)
-   })
    
