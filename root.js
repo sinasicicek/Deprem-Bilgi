@@ -1,4 +1,4 @@
-Ofconst conta=document.querySelector(".container")
+const conta=document.querySelector(".container")
 
 async function getir(kac) {
     let kac_adet="https://api.orhanaydogdu.com.tr/deprem/live.php?limit="
