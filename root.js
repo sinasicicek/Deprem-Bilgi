@@ -71,7 +71,7 @@ function basla(kac_adet=100) {
           const oran=document.querySelector("siddetadeti")
          
 
-for(lokasyon !=null){
+for(lokasyon != null){
  sayi=sayi+1
 }
           oran.textContent=sayi
