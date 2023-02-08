@@ -41,7 +41,7 @@ let eklenecek=[str,h5,span]
 
 return div;
 }
-
+const sayiToplam=0
 function basla(kac_adet=100) {
     let bc=getir(kac_adet);
 console.log(bc)
@@ -65,9 +65,12 @@ console.log(bc)
                  let siddet=eleman["mag"]
              //  console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
+                //  console.log(lokasyon)
+             
 if(tarih != null && lokasyon != null && siddet != null){
                 let data=obj_build(tarih,lokasyon,siddet)
                 conta.appendChild(data)
+                
        }
      
                 }
