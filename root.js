@@ -45,14 +45,6 @@ const sayiToplam=0
 function basla(kac_adet=100) {
     let bc=getir(kac_adet);
 
-   
-const depremA=document.querySelector("#depremAdeti")
-                const buildspan=obj_build("span")
-                
-buildspan.textContent=lokasyon +":"+sayi
-
-
-
     bc.then( geldi=>{
    for (const key in geldi) {
       
@@ -73,6 +65,8 @@ buildspan.textContent=lokasyon +":"+sayi
                  let siddet=eleman["mag"]
              //  console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
+                  console.log(lokasyon)
+             
 if(tarih != null && lokasyon != null && siddet != null){
                 let data=obj_build(tarih,lokasyon,siddet)
                 conta.appendChild(data)
