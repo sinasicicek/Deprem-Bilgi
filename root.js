@@ -64,7 +64,7 @@ function basla(kac_adet=100) {
                  let siddet=eleman["mag"]
                console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
-if(tarih != null && lokasyon != null && şiddet != null){
+if(tarih != null && lokasyon != null && siddet != null){
                 let data=obj_build(tarih,lokasyon,siddet)
                 conta.appendChild(data)
        }
