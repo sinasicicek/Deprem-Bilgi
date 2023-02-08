@@ -81,12 +81,4 @@ setInterval(()=>{
     conta.innerHTML=""
     basla()
 },60000)
-
-const buton=document.querySelector("#ref")
-buton.addEventListener("click",()=>{
- 
- conta.innerHTML=""
-  basla()
-})
-
    
