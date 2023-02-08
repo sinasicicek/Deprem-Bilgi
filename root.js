@@ -29,8 +29,8 @@ let h5=Created("h5");
 let span=Created("span")
    if (siddet_no >4) {
        span.classList.add("span-red")
-       span.classList.add("sala")
-       div.classList.add("sala")
+       /*span.classList.add("sala")
+       div.classList.add("sala")*/
        }
       span.textContent=params[2];
 
@@ -62,7 +62,7 @@ function basla(kac_adet=100) {
                  let tarih=eleman["date"];
                  let lokasyon=eleman["lokasyon"]
                  let siddet=eleman["mag"]
-               console.log(tarih+" "+lokasyon+" "+siddet );
+             //  console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
 if(tarih != null && lokasyon != null && siddet != null){
                 let data=obj_build(tarih,lokasyon,siddet)
