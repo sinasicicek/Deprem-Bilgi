@@ -44,7 +44,6 @@ return div;
 const sayiToplam=0
 function basla(kac_adet=100) {
     let bc=getir(kac_adet);
-console.log(bc)
     bc.then( geldi=>{
    for (const key in geldi) {
       
