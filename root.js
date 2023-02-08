@@ -65,9 +65,9 @@ function basla(kac_adet=100) {
                console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
                 let data=obj_build(tarih,lokasyon,siddet)
-
+conta.innerHTML=""
                 conta.appendChild(data)
-        console.log(data)
+       
      
                 }
             }
