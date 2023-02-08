@@ -62,7 +62,7 @@ function basla(kac_adet=100) {
                  let tarih=eleman["date"];
                  let lokasyon=eleman["lokasyon"]
                  let siddet=eleman["mag"]
-               //console.log(tarih+" "+lokasyon+" "+siddet );
+               console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
                 let data=obj_build(tarih,lokasyon,siddet)
 
