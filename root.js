@@ -44,13 +44,14 @@ return div;
 
 function basla(kac_adet=100) {
     let bc=getir(kac_adet);
+console.log(bc)
     bc.then( geldi=>{
    for (const key in geldi) {
       
        if (Object.hasOwnProperty.call(geldi, key)) 
        {
            const element = geldi[key];
-           console.log(geldi[key].length);
+          // console.log(geldi[key].length);
          
             for (let index = 0; index < element.length; index++) {
                 const eleman = element[index];
