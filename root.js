@@ -3,6 +3,7 @@ const conta=document.querySelector(".container")
 async function getir(kac) {
     let kac_adet="https://api.orhanaydogdu.com.tr/deprem/live.php?limit="
     const geti=await fetch(`${kac_adet}`+kac);
+    
     return await geti.json()
 }
 
@@ -17,7 +18,12 @@ function obj_build(...params) {
 
 
 
-  
+let konumName=Created("a")
+konumName.setAttribute("href",params[3])
+konumName.setAttribute("target","_blank")
+konumName.textContent="Deprem Lokasyonu"
+konumName.classList.add("konumLi")
+
 
 let str=Created("h3")
     str.textContent=params[1];
@@ -34,7 +40,7 @@ let span=Created("span")
        }
       span.textContent=params[2];
 
-let eklenecek=[str,h5,span]
+let eklenecek=[str,h5,span,konumName]
     eklenecek.forEach( ekle=>{
             div.appendChild(ekle)
         })
@@ -62,12 +68,15 @@ function basla(kac_adet=100) {
                  let tarih=eleman["date"];
                  let lokasyon=eleman["lokasyon"]
                  let siddet=eleman["mag"]
+                 let konumArray=eleman["coordinates"]
+                 console.log(konumArray[0]+"  "+konumArray[1]);
+                 let konum="https://www.google.com/maps/place/"+konumArray[1]+"+"+konumArray[0]
              //  console.log(tarih+" "+lokasyon+" "+siddet );
 /* -------------------------------------- */
                 //  console.log(lokasyon)
              
-if(tarih != null && lokasyon != null && siddet != null){
-                let data=obj_build(tarih,lokasyon,siddet)
+if(tarih != null && lokasyon != null && siddet != null && konum !=null){
+                let data=obj_build(tarih,lokasyon,siddet,konum)
                 conta.appendChild(data)
                 
        }
