@@ -1,4 +1,4 @@
-import { bildirimGönder } from "./notific.js";
+//import { bildirimGönder } from "./notific.js";
 import sehir from "./sehirFiltre.js";
 import { bildirim } from "./notific.js";
 
