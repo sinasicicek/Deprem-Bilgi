@@ -1,148 +1,173 @@
+import { bildirimGönder } from "./notific.js";
+import sehir from "./sehirFiltre.js";
+import { bildirim } from "./notific.js";
 
-const conta=document.querySelector(".container")
+const apiAdresi = "https://api.orhanaydogdu.com.tr";
+const live = "/deprem/kandilli/live";
+const archive = "/deprem/kandilli/archive";
+/*OLŞTURULAN HTML ELEMENTLERİ İÇİN ANA DİV */
+const conta = document.querySelector(".container");
 
-async function getir(kac) {
-    let kac_adet="https://api.orhanaydogdu.com.tr/deprem/live.php?limit="
-    const geti=await fetch(`${kac_adet}`+kac);
-    
-    return await geti.json()
+/*API DOSYASI ASYNC */
+async function getir(kac, sorgu_tipi = "/deprem/kandilli/live") {
+  let kac_adet = apiAdresi;
+  const geti = await fetch(`${kac_adet + sorgu_tipi}`);
+
+  return await geti.json();
 }
 
-function Created(veri){ return document.createElement(veri)}
+/*HTML NESNESİ OLUŞTURMAK İÇİN */
+function Created(veri) {
+  return document.createElement(veri);
+}
 
+/*HTML NESNELERİ BİRLEŞTİRİLİYOR */
 function obj_build(...params) {
+  let div = document.createElement("div");
+  let siddet_no = Number(params[2]);
+  let sinif = ["items", "brdr"];
+  div.classList.add(...sinif);
 
-    let div=document.createElement("div")
-    let siddet_no=Number(params[2])
-    let sinif=["items","brdr"]
-        div.classList.add(...sinif)
+  let konumName = Created("a");
+  konumName.setAttribute("href", params[3]);
+  konumName.setAttribute("target", "_blank");
+  konumName.textContent = "Deprem Lokasyonu";
+  konumName.classList.add("konumLi");
 
+  let str = Created("h3");
+  str.textContent = params[1];
 
+  let h5 = Created("h5");
+  h5.textContent = params[0];
 
-let konumName=Created("a")
-konumName.setAttribute("href",params[3])
-konumName.setAttribute("target","_blank")
-konumName.textContent="Deprem Lokasyonu"
-konumName.classList.add("konumLi")
-
-
-let str=Created("h3")
-    str.textContent=params[1];
-
-let h5=Created("h5");
-        h5.textContent=params[0];
-
-       
-let span=Created("span")
-   if (siddet_no >4) {
-       span.classList.add("span-red")
-       /*span.classList.add("sala")
+  let span = Created("span");
+  if (siddet_no > 4) {
+    span.classList.add("span-red");
+    bildirimGönder(params[0], params[1], siddet_no);
+    /*span.classList.add("sala")
        div.classList.add("sala")*/
-       }
-      span.textContent=params[2];
+  }
+  span.textContent = params[2];
 
-let eklenecek=[str,h5,span,konumName]
-    eklenecek.forEach( ekle=>{
-            div.appendChild(ekle)
-        })
+  let eklenecek = [str, h5, span, konumName];
+  eklenecek.forEach((ekle) => {
+    div.appendChild(ekle);
+  });
 
-return div;
+  return div;
 }
-const sayiToplam=0
-function depremAdeti()
-{
- const div=Created("div")
- div.id="depremAdeti"
 
-const input=Created("input")
-input.type="number"
-input.id="inputdepremnumber"
-input.classList.add("input_deprem")
-div.appendChild(input)
+const sayiToplam = 0;
+/*EKRANDA KAÇ ADET DEPREM GÖSTERİLECEGİ FİLTRESİ */
+function depremAdeti() {
+  const div = Created("div");
+  div.id = "depremAdeti";
 
-const btn=Created("button")
-btn.innerHTML="Getir"
-btn.classList.add("adet_btn")
+  const input = Created("input");
+  input.type = "number";
+  input.id = "inputdepremnumber";
+  input.classList.add("input_deprem");
+  div.appendChild(input);
 
-btn.addEventListener("click",()=>{
-    const sayi_kaci=document.getElementById("inputdepremnumber")
+  const btn = Created("button");
+  btn.innerHTML = "Getir";
+  btn.classList.add("adet_btn");
 
-    if (sayi_kaci.value !=null) {
-        conta.innerHTML=""
-        basla(sayi_kaci.value)
+  btn.addEventListener("click", () => {
+    const sayi_kaci = document.getElementById("inputdepremnumber");
+
+    if (sayi_kaci.value != null) {
+      conta.innerHTML = "";
+      basla(sayi_kaci.value, archive);
+      console.log(sayi_kaci.value);
     } else {
-        alert("Lütfen Sayi giriniz")
+      alert("Lütfen Sayi giriniz");
     }
+  });
 
-    }
-    
-    
-    )
+  div.appendChild(btn);
 
-
-div.appendChild(btn)
-
- return div   
+  return div;
 }
-function basla(kac_adet=100) {
-    let bc=getir(kac_adet);
-    /*depremadeti func cagır */
-    const adet=depremAdeti()
-    const baslik=Created("h1")
-    baslik.innerHTML="Sondan başa dogru kaç adet deprem gösterilsin"
-    baslik.classList.add("baslik_deprem")
-    const altbaslik=Created("h1")
-    altbaslik.innerHTML="* Şuan da "+kac_adet+" adet Deprem Gösteriliyor *"
-    altbaslik.classList.add("baslik_deprem")
 
-    const br=Created("br")
+/*API GELEN VERİLER */
+function basla(kac_adet = 100, sorgu_tipi = live) {
+  bildirim();
+  let bc = getir(kac_adet, sorgu_tipi);
 
-    conta.appendChild(baslik)
-    conta.appendChild(altbaslik)
-    conta.appendChild(adet)
-    conta.appendChild(br)
-    
-    bc.then( geldi=>{
-   for (const key in geldi) {
-      
-       if (Object.hasOwnProperty.call(geldi, key)) 
-       {
-           const element = geldi[key];
-          // console.log(geldi[key].length);
-         
-            for (let index = 0; index < element.length; index++) {
-                const eleman = element[index];
-                if(eleman === undefined){}
-                else{
-                // console.log(eleman["date"]);
+  console.log(kac_adet + " " + sorgu_tipi);
+  /*deprem adeti func cagır */
+  const adet = depremAdeti();
+  const baslik = Created("h1");
+  baslik.innerHTML = "Sondan başa dogru kaç adet deprem gösterilsin";
+  baslik.classList.add("baslik_deprem");
+  const altbaslik = Created("h1");
+  altbaslik.innerHTML = "* Şuan da " + kac_adet + " adet Deprem Gösteriliyor *";
+  altbaslik.classList.add("baslik_deprem");
 
- /*Json verileri  */
-                 let tarih=eleman["date"];
-                 let lokasyon=eleman["lokasyon"]
-                 let siddet=eleman["mag"]
-                 let konumArray=eleman["coordinates"]
-              
-                 let konum="https://www.google.com/maps/place/"+konumArray[1]+"+"+konumArray[0]
-             //  console.log(tarih+" "+lokasyon+" "+siddet );
-/* -------------------------------------- */
-                //  console.log(lokasyon)
-             
-if(tarih != null && lokasyon != null && siddet != null && konum !=null){
-                let data=obj_build(tarih,lokasyon,siddet,konum)
-                conta.appendChild(data)
-                
-       }
-     
-                }
+  const br = Created("br");
+
+  conta.appendChild(baslik);
+  conta.appendChild(altbaslik);
+  conta.appendChild(adet);
+  conta.appendChild(br);
+
+  bc.then((geldi) => {
+    for (const key in geldi) {
+      //archive sorgusu için doguye sokularak kaca adet cekilecegi belirleniyor
+
+      if (Object.hasOwnProperty.call(geldi, key)) {
+        const element = geldi[key];
+        // console.log(geldi[key].length);
+        console.log(element["total"]);
+        for (let index = 0; index < kac_adet; index++) {
+          const eleman = element[index];
+          if (eleman === undefined) {
+          } else {
+            /*Json verileri  */
+            
+            let tarih = eleman["date"];
+            let lokasyon = eleman["title"];
+            let siddet = eleman["mag"];
+            let konumArray = eleman["geojson"];
+
+            // console.log(tarih+" "+lokasyon+" "+siddet+" "+konumArray.coordinates[0]);
+            let konum =
+              "https://www.google.com/maps/place/" +
+              konumArray.coordinates[1] +
+              "+" +
+              konumArray.coordinates[0];
+            if (
+              tarih != null &&
+              lokasyon != null &&
+              siddet != null &&
+              konum != null
+            ) {
+              let data = obj_build(tarih, lokasyon, siddet, konum);
+              conta.appendChild(data);
+
+              /*sehir arama alanı burada */
+              depremSayisi(eleman["title"]);
             }
-       } 
-   }
+          }
 
-})
+
+
+        }
+      }
+    }
+  });
 }
+
+/** */
+function depremSayisi(shr) {
+  let n = shr.search("( )");
+  //  console.log(shr.substring(n));
+}
+
 basla();
-setInterval(()=>{
-    conta.innerHTML=""
-    basla()
-},60000)
-   
+/*HER 6 SANİYEDE SAYFA YENİLENİYOR */
+setInterval(() => {
+  conta.innerHTML = "";
+  basla();
+}, 60000);
