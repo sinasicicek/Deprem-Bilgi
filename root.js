@@ -1,6 +1,6 @@
 //import { bildirimGönder } from "./notific.js";
-import sehir from "./sehirFiltre.js";
-import { bildirim } from "./notific.js";
+//import sehir from "./sehirFiltre.js";
+//import { bildirim } from "./notific.js";
 
 const apiAdresi = "https://api.orhanaydogdu.com.tr";
 const live = "/deprem/kandilli/live";
@@ -92,7 +92,7 @@ function depremAdeti() {
 
 /*API GELEN VERİLER */
 function basla(kac_adet = 100, sorgu_tipi = live) {
-  bildirim();
+ 
   let bc = getir(kac_adet, sorgu_tipi);
 
   console.log(kac_adet + " " + sorgu_tipi);
