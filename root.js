@@ -43,7 +43,7 @@ function obj_build(...params) {
   let span = Created("span");
   if (siddet_no > 4) {
     span.classList.add("span-red");
-    bildirimGönder(params[0], params[1], siddet_no);
+   
     /*span.classList.add("sala")
        div.classList.add("sala")*/
   }
