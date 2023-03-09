@@ -1,0 +1,24 @@
+.d-flex-row
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.d-flex-col
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+    
+}
+.newUiSiddet{
+   
+}
+.derinlikH4{
+    color: #1A2036 !important;
+}
