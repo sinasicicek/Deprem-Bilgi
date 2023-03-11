@@ -31,8 +31,10 @@ function obj_build(...params) {
   let konumName = Created("a");
   konumName.setAttribute("href", params[3]);
   konumName.setAttribute("target", "_blank");
-  konumName.textContent = "Deprem Lokasyonu";
+  konumName.textContent = "Konum";
   konumName.classList.add("konumLi");
+  konumName.classList.add("btn-primary");
+  konumName.classList.add("btn");
 
   let str = Created("h3");
   str.textContent = params[1];
@@ -44,16 +46,39 @@ function obj_build(...params) {
   if (siddet_no > 4) {
     span.classList.add("span-red");
    // bildirimGönder(params[0], params[1], siddet_no);
+
+   
     /*span.classList.add("sala")
        div.classList.add("sala")*/
   }
   span.textContent = params[2];
 
-  let eklenecek = [str, h5, span, konumName];
+
+ 
+  const spanDerinlik=Created("h4")
+  spanDerinlik.classList.add("derinlikH4")
+  spanDerinlik.innerText="Derinlik :"+params[4]
+  if(params[4] <4){spanDerinlik.classList.add("span-red")}
+
+//div-span eklendi
+  const divSpan=Created("div")
+  divSpan.classList.add("d-flex-row")
+  divSpan.classList.add("newUiSiddet")
+  
+  divSpan.appendChild(span)
+//h3-h5 eklendi
+const divBilgiler=Created("div")
+divBilgiler.classList.add("d-flex-col")
+divBilgiler.appendChild(str)
+divBilgiler.appendChild(h5)
+divBilgiler.appendChild(spanDerinlik)
+divSpan.appendChild(konumName)
+
+let eklenecek = [ divSpan,divBilgiler ];
   eklenecek.forEach((ekle) => {
     div.appendChild(ekle);
   });
-
+  
   return div;
 }
 
@@ -67,10 +92,14 @@ function depremAdeti() {
   input.type = "number";
   input.id = "inputdepremnumber";
   input.classList.add("input_deprem");
+  input.classList.add("form-control")
+  input.setAttribute("placeholder","Kac Adet Deprem Gösterilsin")
   div.appendChild(input);
 
   const btn = Created("button");
   btn.innerHTML = "Getir";
+  btn.classList.add("btn");
+  btn.classList.add("btn-primary");
   btn.classList.add("adet_btn");
 
   btn.addEventListener("click", () => {
@@ -111,6 +140,9 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
   conta.appendChild(adet);
   conta.appendChild(br);
 
+  const divConta=Created("div")
+
+
   bc.then((geldi) => {
     for (const key in geldi) {
       //archive sorgusu için doguye sokularak kaca adet cekilecegi belirleniyor
@@ -129,6 +161,7 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
             let lokasyon = eleman["title"];
             let siddet = eleman["mag"];
             let konumArray = eleman["geojson"];
+            let derinlik=eleman["depth"]
 
             // console.log(tarih+" "+lokasyon+" "+siddet+" "+konumArray.coordinates[0]);
             let konum =
@@ -142,12 +175,16 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
               siddet != null &&
               konum != null
             ) {
-              let data = obj_build(tarih, lokasyon, siddet, konum);
-              conta.appendChild(data);
+              let data = obj_build(tarih, lokasyon, siddet, konum,derinlik);
+
+              divConta.appendChild(data)
+              divConta.classList.add("d-flex-row")
+              conta.appendChild(divConta)
 
               /*sehir arama alanı burada */
-              depremSayisi(eleman["title"]);
-            }
+              depremSayisi(eleman["title"],lokasyon);
+            } 
+           
           }
 
 
@@ -159,9 +196,9 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
 }
 
 /** */
-function depremSayisi(shr) {
+function depremSayisi(shr,lokasyon) {
   let n = shr.search("( )");
-  console.log(shr.substring(n));
+ // console.log(shr.substring(n));
 }
 
 basla();
@@ -170,3 +207,4 @@ setInterval(() => {
   conta.innerHTML = "";
   basla();
 }, 60000);
+
