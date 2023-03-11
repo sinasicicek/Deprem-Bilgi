@@ -43,7 +43,7 @@ function obj_build(...params) {
   let span = Created("span");
   if (siddet_no > 4) {
     span.classList.add("span-red");
-    bildirimGönder(params[0], params[1], siddet_no);
+   // bildirimGönder(params[0], params[1], siddet_no);
     /*span.classList.add("sala")
        div.classList.add("sala")*/
   }
@@ -94,7 +94,6 @@ function depremAdeti() {
 function basla(kac_adet = 100, sorgu_tipi = live) {
  
   let bc = getir(kac_adet, sorgu_tipi);
-
   console.log(kac_adet + " " + sorgu_tipi);
   /*deprem adeti func cagır */
   const adet = depremAdeti();
@@ -162,7 +161,7 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
 /** */
 function depremSayisi(shr) {
   let n = shr.search("( )");
-  //  console.log(shr.substring(n));
+  console.log(shr.substring(n));
 }
 
 basla();
