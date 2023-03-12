@@ -8,9 +8,10 @@ const apiAdresi = "https://api.orhanaydogdu.com.tr";
 const live = "/deprem/kandilli/live";
 const archive = "/deprem/kandilli/archive";
 let depremil=[]
-let iller=[]
 let tarihsaat=[]
 let ilkSaat=null
+let depremAdetiObj={}
+let depremsAdet={}
 /*OLŞTURULAN HTML ELEMENTLERİ İÇİN ANA DİV */
 const conta = document.querySelector(".container");
 
@@ -18,7 +19,7 @@ const conta = document.querySelector(".container");
 async function getir(kac, sorgu_tipi = "/deprem/kandilli/live") {
   let kac_adet = apiAdresi;
   const geti = await fetch(`${kac_adet + sorgu_tipi}`);
-enfazla()
+
   return await geti.json();
 }
 
@@ -88,7 +89,6 @@ let eklenecek = [ divSpan,divBilgiler ];
   return div;
 }
 
-const sayiToplam = 0;
 /*EKRANDA KAÇ ADET DEPREM GÖSTERİLECEGİ FİLTRESİ */
 function depremAdeti() {
   const div = Created("div");
@@ -162,20 +162,25 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
           const eleman = element[index];
           if (eleman === undefined) {
           } else {
+
             /*Json verileri  */
-            
+            let depremid=eleman["earthquake_id"]
             let tarih = eleman["date"];
             let lokasyon = eleman["title"];
             let siddet = eleman["mag"];
             let konumArray = eleman["geojson"];
             let derinlik=eleman["depth"]
-            let sehir=eleman["location_properties"]["closestCity"]["name"]
+            let sehir=eleman["location_properties"]["epiCenter"]["name"]
+            let code=eleman["location_properties"]["epiCenter"]["cityCode"] 
+            let sonc= enfazla()
+            sehir=sonc[code-1]
+            if(sehir===undefined){sehir=lokasyon}
            
-            depremil.push(sehir)
-            tarihsaat.push(tarih)
-              /*sehir arama alanı burada */
 
-            // console.log(tarih+" "+lokasyon+" "+siddet+" "+konumArray.coordinates[0]);
+            depremil.push(sehir)
+            
+            depremAdetiObj[lokasyon]={"Siddet":siddet,"tarih":tarih,"sehir":sehir,"Derinlik":derinlik}
+            tarihsaat.push(tarih)
             let konum =
               "https://www.google.com/maps/place/" +
               konumArray.coordinates[1] +
@@ -192,8 +197,6 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
               divConta.appendChild(data)
               divConta.classList.add("d-flex-row")
               conta.appendChild(divConta)
-
-
 
             } 
            
@@ -231,16 +234,23 @@ function depremSayisi() {
     kısa.forEach(elem=>{
      const li=Created("li")
      son=depremil.filter(elemen=>elemen==elem)
-      console.log(son[0]+" "+son.length+" "+tarihsaat[0].substring(10,16));
+
+     
       li.innerText=son[0]+" ("+son.length+" adet)"
       if (son.length > 5) {
         li.classList.add("li-red")
       }
+     
+      li.addEventListener("click",()=>{
+      
+       depremBilgiLiClick(elem)
+       
+       
+      })
       ul.appendChild(li)
     })
 
     depremil=[]
-    iller=[]
     
     const eklemeAlanıNumber=document.getElementById("depremNumber")
     eklemeAlanıNumber.appendChild(ul)
@@ -263,6 +273,53 @@ depremdiv.innerHTML= `<p>
 
  ekl.appendChild(depremdiv)
  depremSayisi()
+}
+
+function depremBilgiLiClick(sehir) 
+{
+  const idNum=document.getElementById("detay")
+  const kapatBtn=Created("button")
+  kapatBtn.innerText="X"
+  kapatBtn.classList.add("kapat")
+  
+  idNum.innerHTML=""
+ const ul=Created("ul")
+  console.log("depremclick icinde");
+  for (const key in depremAdetiObj) {
+    if (Object.hasOwnProperty.call(depremAdetiObj, key)) {
+      const element = depremAdetiObj[key];
+   if(element.sehir !=sehir){}
+   else{
+    console.log(element);
+     
+      const lidetay=Created("li")
+    for (const key in element) {  
+      if (Object.hasOwnProperty.call(element, key)) {
+        const eleme = element[key];
+        lidetay.innerHTML=`${element.tarih} siddet:${element.Siddet} derinlik:${element.Derinlik}`
+        
+      }
+    
+    
+    }
+    kapatBtn.addEventListener("click",()=>{
+      idNum.classList.remove("showOn")
+      idNum.classList.add("showDetay")
+  })
+    ul.appendChild(lidetay)
+ idNum.appendChild(ul)
+ idNum.classList.add("showOn")
+ idNum.appendChild(kapatBtn)
+
+  }
+      
+     
+
+      
+      
+      
+    }
+  }
 }
 basla();
 /*HER 6 SANİYEDE SAYFA YENİLENİYOR */
