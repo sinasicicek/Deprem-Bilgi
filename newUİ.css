@@ -22,3 +22,29 @@
 .derinlikH4{
     color: #1A2036 !important;
 }
+
+#depremNumber{
+    background-color: #1A2036 !important;
+}
+#depremNumber > h5{color: white !important;}
+#depremNumber > ul
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+#depremNumber > ul > li
+{
+   border: 1px solid white;
+   border-radius: 5px; 
+   margin: 5px 5px;
+   padding: .8rem;
+}
+#depremNumber > ul > li:hover{
+    background-color:#0d6efd ;
+    color:#1A2036 ;
+    border: 0px;
+    cursor: grabbing;
+}
+.li-red{
+    background-color:#ff0000 ;
+}

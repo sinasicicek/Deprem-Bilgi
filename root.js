@@ -2,9 +2,15 @@
 //import sehir from "./sehirFiltre.js";
 //import { bildirim } from "./notific.js";
 
+import enfazla from "./depremsaati.js";
+
 const apiAdresi = "https://api.orhanaydogdu.com.tr";
 const live = "/deprem/kandilli/live";
 const archive = "/deprem/kandilli/archive";
+let depremil=[]
+let iller=[]
+let tarihsaat=[]
+let ilkSaat=null
 /*OLŞTURULAN HTML ELEMENTLERİ İÇİN ANA DİV */
 const conta = document.querySelector(".container");
 
@@ -12,7 +18,7 @@ const conta = document.querySelector(".container");
 async function getir(kac, sorgu_tipi = "/deprem/kandilli/live") {
   let kac_adet = apiAdresi;
   const geti = await fetch(`${kac_adet + sorgu_tipi}`);
-
+enfazla()
   return await geti.json();
 }
 
@@ -57,7 +63,7 @@ function obj_build(...params) {
  
   const spanDerinlik=Created("h4")
   spanDerinlik.classList.add("derinlikH4")
-  spanDerinlik.innerText="Derinlik :"+params[4]
+  spanDerinlik.innerText="Derinlik :"+params[4]+" km"
   if(params[4] <4){spanDerinlik.classList.add("span-red")}
 
 //div-span eklendi
@@ -129,9 +135,11 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
   const baslik = Created("h1");
   baslik.innerHTML = "Sondan başa dogru kaç adet deprem gösterilsin";
   baslik.classList.add("baslik_deprem");
+  
   const altbaslik = Created("h1");
   altbaslik.innerHTML = "* Şuan da " + kac_adet + " adet Deprem Gösteriliyor *";
   altbaslik.classList.add("baslik_deprem");
+  altbaslik.id="baslikD"
 
   const br = Created("br");
 
@@ -150,7 +158,6 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
       if (Object.hasOwnProperty.call(geldi, key)) {
         const element = geldi[key];
         // console.log(geldi[key].length);
-        console.log(element["total"]);
         for (let index = 0; index < kac_adet; index++) {
           const eleman = element[index];
           if (eleman === undefined) {
@@ -162,6 +169,11 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
             let siddet = eleman["mag"];
             let konumArray = eleman["geojson"];
             let derinlik=eleman["depth"]
+            let sehir=eleman["location_properties"]["closestCity"]["name"]
+           
+            depremil.push(sehir)
+            tarihsaat.push(tarih)
+              /*sehir arama alanı burada */
 
             // console.log(tarih+" "+lokasyon+" "+siddet+" "+konumArray.coordinates[0]);
             let konum =
@@ -181,30 +193,82 @@ function basla(kac_adet = 100, sorgu_tipi = live) {
               divConta.classList.add("d-flex-row")
               conta.appendChild(divConta)
 
-              /*sehir arama alanı burada */
-              depremSayisi(eleman["title"],lokasyon);
+
+
             } 
            
           }
-
+          
+          ilkSaat=tarihsaat[kac_adet-1]
 
 
         }
       }
-    }
-  });
+    } 
+    htmlDepremEkle()
+   
+  }
+ 
+  );
+
+
+
 }
 
 /** */
-function depremSayisi(shr,lokasyon) {
-  let n = shr.search("( )");
- // console.log(shr.substring(n));
-}
 
+function depremSayisi() {
+
+   function removeDuplicates() {
+        return depremil.filter((item,index) => depremil.indexOf(item) === index);
+    }
+    let son=null
+    let text=Created("span")
+    const ul=Created("ul")
+    
+    
+    const kısa=removeDuplicates()
+    kısa.forEach(elem=>{
+     const li=Created("li")
+     son=depremil.filter(elemen=>elemen==elem)
+      console.log(son[0]+" "+son.length+" "+tarihsaat[0].substring(10,16));
+      li.innerText=son[0]+" ("+son.length+" adet)"
+      if (son.length > 5) {
+        li.classList.add("li-red")
+      }
+      ul.appendChild(li)
+    })
+
+    depremil=[]
+    iller=[]
+    
+    const eklemeAlanıNumber=document.getElementById("depremNumber")
+    eklemeAlanıNumber.appendChild(ul)
+  
+
+}
+function htmlDepremEkle() {
+const ekl=document.getElementById("baslikD")
+const depremdiv=Created("div")
+depremdiv.innerHTML= `<p>
+<a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  Deprem Sayıları
+</a>
+</p>
+<div class="collapse" id="collapseExample">
+<div class="card card-body" id="depremNumber">
+  <h5>  ${ilkSaat.substring(10,16)} ile ${tarihsaat[0].substring(10,16)} saatleri arasında olan Depremler</h5>
+</div>
+</div>`
+
+ ekl.appendChild(depremdiv)
+ depremSayisi()
+}
 basla();
 /*HER 6 SANİYEDE SAYFA YENİLENİYOR */
 setInterval(() => {
   conta.innerHTML = "";
   basla();
+ 
 }, 60000);
 
