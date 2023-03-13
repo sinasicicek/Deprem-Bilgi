@@ -1,69 +1,118 @@
-.d-flex-row
-{
-    display: flex;
-    align-items: center;
+.d-flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.d-flex-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.newUiSiddet {
+}
+.derinlikH4 {
+  color: #1a2036 !important;
+}
+
+#depremNumber {
+  background-color: #1a2036 !important;
+}
+#depremNumber > h5 {
+  color: white !important;
+}
+#depremNumber > ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+#depremNumber > ul > li {
+  width: 180px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 5px 5px;
+  padding: 0.8rem;
+  font-size: 18px;
+  overflow: hidden;
+  text-align: center;
+  background-color: #e1e5e8;
+  color: #1a2036;
+  height: 100%;
+}
+#depremNumber > ul > li:hover {
+  background-color: #0d6efd;
+  color: #1a2036;
+  border: 0px;
+  cursor: grabbing;
+}
+.li-red {
+  background-color: #ff0000;
+}
+
+.showDetay {
+  display: none;
+}
+.showOn {
+  display: block;
+  position: absolute;
+  top: 5%;
+  width: 50%;
+
+  padding: 1rem;
+  background-color: #e1e5e8;
+  color: #1a2036;
+  font-weight: 600;
+  font-size: 24px;
+}
+.kapat {
+  width: 120px;
+  height: 50px;
+  position: absolute;
+  right: 3px;
+  border: 1px solid red;
+  top: 1px;
+}
+#detay {
+  border: 2px solid #1a2036;
+  border-radius: 10px;
+}
+#detay > ul > li {
+  border: 1px solid #1a2036;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+  #depremNumber > ul {
     justify-content: center;
-    flex-wrap: wrap;
+  }
+  .showOn{
+    width: 60%;
+    left: 25%;
+  }
+  .kapat{
+    width: 40px;
+    font-size: 12px;
+  }
 }
-.d-flex-col
-{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    
-    
-}
-.newUiSiddet{
-   
-}
-.derinlikH4{
-    color: #1A2036 !important;
-}
+@media (min-width: 375px) and (max-width: 425px) {
+    #depremNumber > ul {
+        justify-content: center;
+      }
+      .showOn{
+        width: 80%;
+        font-size: 15px;
+        height: fit-content;
+        position: fixed;
+      }
+      #depremNumber > ul > li {
+        width: 100%;
+      }
+      .kapat{
+        width: 20px;
+        font-size: 8px;
+      }
 
-#depremNumber{
-    background-color: #1A2036 !important;
-}
-#depremNumber > h5{color: white !important;}
-#depremNumber > ul
-{
-    display: flex;
-    flex-wrap: wrap;
-}
-#depremNumber > ul > li
-{
-   border: 1px solid white;
-   border-radius: 5px; 
-   margin: 5px 5px;
-   padding: .8rem;
-}
-#depremNumber > ul > li:hover{
-    background-color:#0d6efd ;
-    color:#1A2036 ;
-    border: 0px;
-    cursor: grabbing;
-}
-.li-red{
-    background-color:#ff0000 ;
-}
-
-.showDetay{
-    display: none;
-}
-.showOn{
-    display: block;
-    position: absolute;
-    top: 5%;
-    width: 320px;
- 
-    padding: 1rem;
-    background-color: #0d6efd;
-    color: black;
-    font-size: 24px;
-}
-.kapat{
-    width: 100%;
-    
 }

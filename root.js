@@ -253,6 +253,7 @@ function depremSayisi() {
     depremil=[]
     
     const eklemeAlanıNumber=document.getElementById("depremNumber")
+
     eklemeAlanıNumber.appendChild(ul)
   
 
@@ -260,6 +261,7 @@ function depremSayisi() {
 function htmlDepremEkle() {
 const ekl=document.getElementById("baslikD")
 const depremdiv=Created("div")
+depremdiv.id="depredivdetay"
 depremdiv.innerHTML= `<p>
 <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
   Deprem Sayıları
@@ -279,13 +281,14 @@ function depremBilgiLiClick(sehir)
 {
   const idNum=document.getElementById("detay")
   const kapatBtn=Created("button")
-  kapatBtn.innerText="X"
+  kapatBtn.innerText="Kapat"
   kapatBtn.classList.add("kapat")
-  
+ 
   idNum.innerHTML=""
  const ul=Created("ul")
   console.log("depremclick icinde");
   for (const key in depremAdetiObj) {
+    
     if (Object.hasOwnProperty.call(depremAdetiObj, key)) {
       const element = depremAdetiObj[key];
    if(element.sehir !=sehir){}
@@ -293,10 +296,11 @@ function depremBilgiLiClick(sehir)
     console.log(element);
      
       const lidetay=Created("li")
+      
     for (const key in element) {  
       if (Object.hasOwnProperty.call(element, key)) {
         const eleme = element[key];
-        lidetay.innerHTML=`${element.tarih} siddet:${element.Siddet} derinlik:${element.Derinlik}`
+        lidetay.innerHTML=` ${element.tarih} Siddet:${element.Siddet} Derinlik:${element.Derinlik}`
         
       }
     
@@ -306,10 +310,13 @@ function depremBilgiLiClick(sehir)
       idNum.classList.remove("showOn")
       idNum.classList.add("showDetay")
   })
-    ul.appendChild(lidetay)
+    ul.appendChild(lidetay) 
+    idNum.appendChild(kapatBtn)
  idNum.appendChild(ul)
  idNum.classList.add("showOn")
- idNum.appendChild(kapatBtn)
+
+
+
 
   }
       
